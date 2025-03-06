@@ -1,1 +1,11 @@
-
+name: GitHub Action Demo
+on:
+  push:
+    branches:
+      - main
+  workflow_dispath:
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "執行成功"
