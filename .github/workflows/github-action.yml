@@ -1,9 +1,12 @@
 name: GitHub Action Demo
 on:
-  schedule:
-    - cron: "0 5 * * *"
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 jobs:
   demo:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,5 +26,5 @@ jobs:
           git config --global user.email "jeter.chen@highercloud.com.tw"
           git pull origin main
           git add .
-          git commit -m "daily return"
+          git commit -m "daily return [skip ci]"
           git push origin main
