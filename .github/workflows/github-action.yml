@@ -3,9 +3,24 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  schedule:
+    - corn: "0 5 * * *"
 jobs:
   demo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "執行成功"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4.5.0
+        with:
+          python3-version: "3.11"
+      - name: Install Python Dependency
+      - name: Run index.py
+        run: python index.py
+      - name: Commit Data Back To GitHub Repo
+        run: |
+          git config --global user.name "github-action demo"
+          git config --global user.email "jeter.chen@highercloud.com.tw"
+          git add . && git commit -m "daily return"
+          git push origin main
